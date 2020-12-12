@@ -25,11 +25,11 @@ namespace Kantor
                 // MainForm is defined elsewhere
                 if (logowanie.czy_admin == true)
                 {
-                    Application.Run(new Panel_kontrolny(1));
+                    Application.Run(new Panel_kontrolny(logowanie.ID_uzytkonika, 1));
                 }
                 else
                 {
-                    Application.Run(new Panel_kontrolny());
+                    Application.Run(new Panel_kontrolny(logowanie.ID_uzytkonika, 0));
                 }
             }
         }

@@ -15,6 +15,7 @@ namespace Kantor
     {
         public bool czy_zalogowano { get; private set; }
         public bool czy_admin { get; private set; }
+        public int ID_uzytkonika { get; private set; }
         public Logowanie()
         {
             InitializeComponent();
@@ -41,8 +42,8 @@ namespace Kantor
             try
             {
                 string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
-                string sql = String.Format("SELECT COUNT(*) FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';",textBox1.Text, CreateMD5(textBox2.Text));
-                //string sql = "SELECT COUNT(*) FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
+                //string sql = String.Format("SELECT COUNT(*) FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';",textBox1.Text, CreateMD5(textBox2.Text));
+                string sql = "SELECT COUNT(*) FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
                 var con = new MySqlConnection(cs);
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -72,8 +73,8 @@ namespace Kantor
             try
             {
                 string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
-                string sql = String.Format("SELECT Uprawnienia FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';", textBox1.Text, CreateMD5(textBox2.Text));
-                //string sql = "SELECT COUNT(*) FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
+                //string sql = String.Format("SELECT Uprawnienia FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';", textBox1.Text, CreateMD5(textBox2.Text));
+                string sql = "SELECT Uprawnienia FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
                 var con = new MySqlConnection(cs);
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -97,11 +98,34 @@ namespace Kantor
             }
             return false;
         }
+
+        private void pobierz_ID()
+        {
+            try
+            {
+                string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
+                //string sql = String.Format("SELECT ID FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';", textBox1.Text, CreateMD5(textBox2.Text));
+                string sql = "SELECT ID FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
+                var con = new MySqlConnection(cs);
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                //object result = cmd.ExecuteScalar();
+                ID_uzytkonika = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                con.Close();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Problem z polaczeniem z baza");
+                ID_uzytkonika = -1;
+            }
+        }
         private void bt_logowanie_Click(object sender, EventArgs e)
         {
             if (zaloguj()==true)
             {
                 czy_admin = Admin();
+                pobierz_ID();
                 czy_zalogowano = true;
                 Close();
             }

@@ -78,7 +78,7 @@
             this.Controls.Add(this.bt_zamina_obca);
             this.Controls.Add(this.bt_zamina_PLN);
             this.Name = "Panel_kontrolny";
-            this.Text = "Panel_kontrolny";
+            this.Text = "Panel kontrolny";
             this.ResumeLayout(false);
 
         }
