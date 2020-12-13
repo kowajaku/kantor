@@ -93,5 +93,51 @@ namespace Kantor
             }
         }
 
+        public static List<List<string>> pobierz_dane_podglad()
+        {
+            List<List<string>> dane = new List<List<string>>();
+            string sql = "SELECT`tranzakcje`.Data,`tranzakcje`.Godzina," +
+                "`typy`.`Opis`,`tranzakcje`.Ilosc_jednostek_wym," +
+                "`tranzakcje`.ilosc_jednostek_po_wymianie," +
+                "`uzytkownicy`.Imie,`uzytkownicy`.Nazwisko " +
+                "FROM (`tranzakcje` JOIN `uzytkownicy` on " +
+                "`tranzakcje`.`ID_uzytkownika`=`uzytkownicy`.`ID`) " +
+                "JOIN `typy` ON `tranzakcje`.`Typ_operacji`=`typy`.`ID` ";
+            
+            try
+            {
+                var con = new MySqlConnection(connectionString);
+                con.Open();
+                
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        List<string> row = new List<string>();
+                        row.Add(reader["Data"].ToString());
+                        row.Add(reader["Godzina"].ToString());
+                        row.Add(reader["Opis"].ToString());
+                        row.Add(reader["Ilosc_jednostek_wym"].ToString());
+                        row.Add(reader["ilosc_jednostek_po_wymianie"].ToString());
+                        row.Add(reader["Imie"].ToString());
+                        row.Add(reader["Nazwisko"].ToString());
+                        dane.Add(row);
+                    }
+                }
+                else
+                {
+                    //MessageBox.Show("Data not found");
+                }
+                con.Close();
+                return dane;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
     }
 }
