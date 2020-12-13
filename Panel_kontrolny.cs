@@ -41,7 +41,9 @@ namespace Kantor
 
         private void bt_podglad_Click(object sender, EventArgs e)
         {
-
+            Podglad okno = new Podglad(this);
+            okno.Show();
+            this.Hide();
         }
     }
 }

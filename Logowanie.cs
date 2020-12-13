@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Kantor
 {
@@ -19,6 +18,8 @@ namespace Kantor
         public Logowanie()
         {
             InitializeComponent();
+            textBox1.Text= "kubaKowal";
+            textBox2.Text = "1234";
         }
         private string CreateMD5(string input)
         {
@@ -37,97 +38,34 @@ namespace Kantor
                 return sb.ToString();
             }
         }
-        private bool zaloguj()
-        {
-            try
-            {
-                string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
-                //string sql = String.Format("SELECT COUNT(*) FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';",textBox1.Text, CreateMD5(textBox2.Text));
-                string sql = "SELECT COUNT(*) FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
-                var con = new MySqlConnection(cs);
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                //object result = cmd.ExecuteScalar();
-                if (cmd.ExecuteScalar().ToString() =="0")
-                {
-                    con.Close();
-                    return false;
-                }
-                else
-                {
-                    con.Close();
-                    return true;
-                }
-
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show("Problem z polaczeniem z baza");
-                return false;
-            }
-            return false;
-        }
-
-        private bool Admin()
-        {
-            try
-            {
-                string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
-                //string sql = String.Format("SELECT Uprawnienia FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';", textBox1.Text, CreateMD5(textBox2.Text));
-                string sql = "SELECT Uprawnienia FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
-                var con = new MySqlConnection(cs);
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                //object result = cmd.ExecuteScalar();
-                if (cmd.ExecuteScalar().ToString() == "0")
-                {
-                    con.Close();
-                    return true;
-                }
-                else
-                {
-                    con.Close();
-                    return false;
-                }
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Problem z polaczeniem z baza");
-                return false;
-            }
-            return false;
-        }
-
-        private void pobierz_ID()
-        {
-            try
-            {
-                string cs = @"server=localhost;userid=root;password=;database=kantor_baza";
-                //string sql = String.Format("SELECT ID FROM uzytkownicy WHERE `login`='{0}' and `Haslo`='{1}';", textBox1.Text, CreateMD5(textBox2.Text));
-                string sql = "SELECT ID FROM uzytkownicy WHERE `login`='kubaKowal' and `Haslo`='81dc9bdb52d04dc20036dbd8313ed055'";
-                var con = new MySqlConnection(cs);
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                //object result = cmd.ExecuteScalar();
-                ID_uzytkonika = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                con.Close();
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Problem z polaczeniem z baza");
-                ID_uzytkonika = -1;
-            }
-        }
+        
         private void bt_logowanie_Click(object sender, EventArgs e)
         {
-            if (zaloguj()==true)
+            string login = textBox1.Text;
+            string haslo = CreateMD5(textBox2.Text);
+            
+            int war = MySQL_Load_base.zaloguj(login, haslo);
+            if (war==1)
             {
-                czy_admin = Admin();
-                pobierz_ID();
-                czy_zalogowano = true;
-                Close();
+                int admin= MySQL_Load_base.Admin(login, haslo);
+                ID_uzytkonika = MySQL_Load_base.pobierz_ID(login, haslo);
+                if(admin==-1 || ID_uzytkonika==-1)
+                {
+                    MessageBox.Show("Problem z polaczeniem z baza danych!!!");
+                }
+                else
+                {
+                    if (admin == 1) czy_admin = true;
+                    else czy_admin = false;
+
+                    czy_zalogowano = true;
+                    Close();
+                }
+                
+            }
+            else if(war==-1)
+            {
+                MessageBox.Show("Problem z polaczeniem z baza danych!!!");
             }
             else
             {
