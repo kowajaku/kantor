@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Kantor
 {
-    class MySQL_Load_base
+    public class MySQL_Load_base
     {
         private static string connectionString = @"server=localhost;userid=root;password=;database=kantor_baza";
         public static int zaloguj(string login,string haslo)

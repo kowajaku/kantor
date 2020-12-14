@@ -18,10 +18,11 @@ namespace Kantor
         public Logowanie()
         {
             InitializeComponent();
-            textBox1.Text= "kubaKowal";
-            textBox2.Text = "1234";
+            
+            //textBox1.Text= "kubaKowal";
+            //textBox2.Text = "1234";
         }
-        private string CreateMD5(string input)
+        public string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
