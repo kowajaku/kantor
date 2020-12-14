@@ -31,12 +31,16 @@ namespace Kantor
 
         private void bt_zamina_PLN_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(ID_zalogowany.ToString());
+            Zamiana_PLN_obca PLN_obca = new Zamiana_PLN_obca(this);
+            PLN_obca.Show();
+            this.Hide();
         }
 
         private void bt_zamina_obca_Click(object sender, EventArgs e)
         {
-
+            Zamiana_obcej_PLN obca_PLN = new Zamiana_obcej_PLN(this);
+            obca_PLN.Show();
+            this.Hide();
         }
 
         private void bt_podglad_Click(object sender, EventArgs e)
