@@ -19,8 +19,8 @@ namespace Kantor
         {
             InitializeComponent();
             
-            //textBox1.Text= "kubaKowal";
-            //textBox2.Text = "1234";
+            textBox1.Text= "kubaKowal";
+            textBox2.Text = "1234";
         }
         public string CreateMD5(string input)
         {
@@ -72,7 +72,7 @@ namespace Kantor
             {
                 MessageBox.Show("Bledne dane logowania!!!!");
             }
-              
+            
         }
     }
 }
