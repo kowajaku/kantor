@@ -39,6 +39,10 @@ namespace Kantor
             tB_kwota.Text = tB_kwota.Text.Replace(".", ",");
             double kwota_PLN = Convert.ToDouble(tB_kwota.Text);
             double kwota_wyplaty = kwota_PLN / kurs;
+            if(kwota_PLN==0)
+            {
+                return;
+            }
             kwota_wyplaty= Math.Round(kwota_wyplaty, 2);
             if (walidacja_kwoty(kwota_wyplaty)==true)
             {
@@ -65,8 +69,39 @@ namespace Kantor
                 {
                     stan.CHF -= kwota_wyplaty;
                 }
-                //MessageBox.Show(MySQL_Load_base.aktualizacja_stanu_walut_kantoru(stan));
-                if (MySQL_Load_base.aktualizacja_stanu_walut_kantoru(stan) == true)
+                DateTime localDate = DateTime.Now;
+                string Y = localDate.Year.ToString();
+                string M = localDate.Month.ToString();
+                string D = localDate.Day.ToString();
+                if (M.Length < 2)
+                {
+                    M = "0" + M;
+                }
+                if (D.Length < 2)
+                {
+                    D = "0" + D;
+                }
+                string data = Y + "-" + M + "-" + D;
+
+                string HH = localDate.Hour.ToString();
+                string MM = localDate.Minute.ToString();
+                string SS = localDate.Second.ToString();
+                if (HH.Length < 2)
+                {
+                    HH = "0" + HH;
+                }
+                if (MM.Length < 2)
+                {
+                    MM = "0" + MM;
+                }
+                if (SS.Length < 2)
+                {
+                    SS = "0" + SS;
+                }
+                string time = HH + ":" + MM + ":" + SS;
+
+                if (MySQL_Load_base.aktualizacja_stanu_walut_kantoru(stan) == true &&
+                    MySQL_Load_base.zapis_log_tranzakcji_do_bazy(data, time, 1, kwota_PLN, kwota_wyplaty, 1) == true)
                 {
                     MessageBox.Show("Pomysleni wymieniono walute!!!");
                 }

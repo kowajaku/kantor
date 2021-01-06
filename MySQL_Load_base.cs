@@ -215,5 +215,50 @@ namespace Kantor
             return true;
         }
 
+        public static bool zapis_log_tranzakcji_do_bazy(string data,
+                                                        string godzina,
+                                                        int typ_operacji,
+                                                        double Ilosc_do,
+                                                        double Ilosc_po,
+                                                        int ID_usera)
+        {
+            string sql = String.Format("INSERT INTO `tranzakcje`(`ID`, `Data`, `Godzina`, `Typ_operacji`, `Ilosc_jednostek_wym`, `ilosc_jednostek_po_wymianie`, `ID_uzytkownika`) VALUES(NULL,'{0}','{1}','{2}','{3}','{4}','{5}')",
+                data, godzina, typ_operacji,
+                Ilosc_do.ToString().Replace(",", "."),
+                Ilosc_po.ToString().Replace(",", "."),
+                ID_usera);
+            MySqlConnection conn = null;
+            MySqlTransaction tr = null;
+
+            try
+            {
+                conn = new MySqlConnection(connectionString);
+                conn.Open();
+                tr = conn.BeginTransaction();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                cmd.Transaction = tr;
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+                tr.Commit();
+
+            }
+            catch (MySqlException ex)
+            {
+                tr.Rollback();
+                if (conn != null)
+                    conn.Close();
+                return false;
+            }
+            finally
+            {
+                if (conn != null)
+                    conn.Close();
+            }
+            return true;
+        }
+
     }
 }
