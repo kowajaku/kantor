@@ -16,10 +16,13 @@ namespace Kantor
         double kurs = -1;
         double marza = 0.04;
         string kod_wybranej_waluty = "USD";
-        public Zamiana_PLN_obca(Form poprzednie)
+        int ID_zalogowany = -1;
+        public Zamiana_PLN_obca(Form poprzednie,int ID)
         {
-            this.poprzednie = poprzednie;
+            
             InitializeComponent();
+            ID_zalogowany = ID;
+            this.poprzednie = poprzednie;
             tB_kwota.Text = "0,00";
             cB_waluty.Items.Add("USD");
             cB_waluty.Items.Add("EUR");
@@ -29,6 +32,26 @@ namespace Kantor
             
         }
 
+        private int typ_operacji()
+        {
+            if(kod_wybranej_waluty=="USD")
+            {
+                return 1;
+            }
+            else if (kod_wybranej_waluty == "EUR")
+            {
+                return 2;
+            }
+            else if (kod_wybranej_waluty == "GBP")
+            {
+                return 3;
+            }
+            else if (kod_wybranej_waluty == "CHF")
+            {
+                return 4;
+            }
+            return 1;
+        }
         private void Zamiana_PLN_obca_FormClosing(object sender, FormClosingEventArgs e)
         {
             poprzednie.Show();
@@ -101,7 +124,7 @@ namespace Kantor
                 string time = HH + ":" + MM + ":" + SS;
 
                 if (MySQL_Load_base.aktualizacja_stanu_walut_kantoru(stan) == true &&
-                    MySQL_Load_base.zapis_log_tranzakcji_do_bazy(data, time, 1, kwota_PLN, kwota_wyplaty, 1) == true)
+                    MySQL_Load_base.zapis_log_tranzakcji_do_bazy(data, time, typ_operacji(), kwota_PLN, kwota_wyplaty, ID_zalogowany) == true)
                 {
                     MessageBox.Show("Pomysleni wymieniono walute!!!");
                 }
