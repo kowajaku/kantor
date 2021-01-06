@@ -13,7 +13,7 @@ namespace Kantor
 {
     public class API_NPB
     {
-        public string GetAPI(string date = "")
+        private string Pobierz_api_nbp(string date = "")
         {
             
             if (date != "")
@@ -47,10 +47,10 @@ namespace Kantor
             public string effectiveDate { get; set; }
             public double mid { get; set; }
         }
-        public double LoadToTable(string date)
+        public double Pobierz_kurs_waluty(string kod_waluty="USD")
         {
             //zwraca -1  jak problem z danymi;
-            String JsonText = GetAPI(date);
+            String JsonText = Pobierz_api_nbp(kod_waluty);
             double kurs = 0;
             if (JsonText == "")
             {
