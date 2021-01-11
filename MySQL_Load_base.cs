@@ -10,6 +10,18 @@ namespace Kantor
     public class MySQL_Load_base
     {
         private static string connectionString = @"server=localhost;userid=root;password=;database=kantor_baza";
+        
+
+        public static string Data_godina_to_data(string data_godz)
+        {
+            string data="";
+            for(int i=0;i<data_godz.Length-8;i++)
+            {
+                data += data_godz[i];
+            }
+            return data;
+        }
+        
         public static int zaloguj(string login,string haslo)
         {
             //1 - sukces
@@ -116,7 +128,7 @@ namespace Kantor
                     while (reader.Read())
                     {
                         List<string> row = new List<string>();
-                        row.Add(reader["Data"].ToString());
+                        row.Add(MySQL_Load_base.Data_godina_to_data(reader["Data"].ToString()));
                         row.Add(reader["Godzina"].ToString());
                         row.Add(reader["Opis"].ToString());
                         row.Add(reader["Ilosc_jednostek_wym"].ToString());
