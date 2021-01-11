@@ -33,13 +33,14 @@
             this.bt_zamien = new System.Windows.Forms.Button();
             this.tB_kwota = new System.Windows.Forms.TextBox();
             this.cB_waluty = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(84, 61);
+            this.label1.Location = new System.Drawing.Point(57, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 25);
             this.label1.TabIndex = 0;
@@ -49,7 +50,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(389, 61);
+            this.label2.Location = new System.Drawing.Point(302, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(205, 25);
             this.label2.TabIndex = 1;
@@ -69,7 +70,7 @@
             // tB_kwota
             // 
             this.tB_kwota.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tB_kwota.Location = new System.Drawing.Point(89, 106);
+            this.tB_kwota.Location = new System.Drawing.Point(62, 81);
             this.tB_kwota.Name = "tB_kwota";
             this.tB_kwota.Size = new System.Drawing.Size(173, 30);
             this.tB_kwota.TabIndex = 3;
@@ -78,16 +79,28 @@
             // 
             this.cB_waluty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cB_waluty.FormattingEnabled = true;
-            this.cB_waluty.Location = new System.Drawing.Point(394, 106);
+            this.cB_waluty.Location = new System.Drawing.Point(307, 78);
             this.cB_waluty.Name = "cB_waluty";
             this.cB_waluty.Size = new System.Drawing.Size(196, 33);
             this.cB_waluty.TabIndex = 4;
+            this.cB_waluty.SelectedIndexChanged += new System.EventHandler(this.cB_waluty_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(595, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(128, 25);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Kurs:--------";
             // 
             // Zamiana_obcej_PLN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cB_waluty);
             this.Controls.Add(this.tB_kwota);
             this.Controls.Add(this.bt_zamien);
@@ -108,5 +121,6 @@
         private System.Windows.Forms.Button bt_zamien;
         private System.Windows.Forms.TextBox tB_kwota;
         private System.Windows.Forms.ComboBox cB_waluty;
+        private System.Windows.Forms.Label label3;
     }
 }

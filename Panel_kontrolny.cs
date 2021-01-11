@@ -38,7 +38,7 @@ namespace Kantor
 
         private void bt_zamina_obca_Click(object sender, EventArgs e)
         {
-            Zamiana_obcej_PLN obca_PLN = new Zamiana_obcej_PLN(this);
+            Zamiana_obcej_PLN obca_PLN = new Zamiana_obcej_PLN(this,ID_zalogowany);
             obca_PLN.Show();
             this.Hide();
         }
