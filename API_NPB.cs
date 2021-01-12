@@ -13,7 +13,7 @@ namespace Kantor
 {
     public class API_NPB
     {
-        private string Pobierz_api_nbp(string date = "")
+        public string Pobierz_api_nbp(string date = "")
         {
             
             if (date != "")
