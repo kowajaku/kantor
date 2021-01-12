@@ -18,9 +18,6 @@ namespace Kantor
         public Logowanie()
         {
             InitializeComponent();
-            
-            textBox1.Text= "kubaKowal";
-            textBox2.Text = "1234";
         }
         public string CreateMD5(string input)
         {
