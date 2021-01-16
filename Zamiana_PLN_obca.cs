@@ -126,7 +126,7 @@ namespace Kantor
                 if (MySQL_Load_base.aktualizacja_stanu_walut_kantoru(stan) == true &&
                     MySQL_Load_base.zapis_log_tranzakcji_do_bazy(data, time, typ_operacji(), kwota_PLN, kwota_wyplaty, ID_zalogowany) == true)
                 {
-                    MessageBox.Show("Pomysleni wymieniono walute!!!");
+                    MessageBox.Show("Pomyślnie wymieniono walute!!!");
                 }
                 else
                 {
