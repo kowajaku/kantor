@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kantor", "Kantor.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KantorTests", "..\KantorTests\KantorTests.csproj", "{F5DB10DA-BA42-4C88-BDF5-07E37F98788F}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "installer", "..\installer\installer.vdproj", "{A7C8471B-6CD7-4099-9151-A495DB7387B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{F5DB10DA-BA42-4C88-BDF5-07E37F98788F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5DB10DA-BA42-4C88-BDF5-07E37F98788F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5DB10DA-BA42-4C88-BDF5-07E37F98788F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C8471B-6CD7-4099-9151-A495DB7387B8}.Debug|Any CPU.ActiveCfg = Release
+		{A7C8471B-6CD7-4099-9151-A495DB7387B8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
