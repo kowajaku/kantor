@@ -15,6 +15,9 @@ namespace Kantor
         Form poprzednie;
         public Podglad(Form poprzednie)
         {
+            //inicjalizujemy komponety nastepnie
+            //wypelniamy kontrolke  datagrid
+            //pobranymi wczesniej z bazy danymi
             InitializeComponent();
             this.poprzednie = poprzednie;
             List<List<string>> dane = MySQL_Load_base.pobierz_dane_podglad();

@@ -19,7 +19,9 @@ namespace Kantor
         int ID_zalogowany = -1;
         public Zamiana_PLN_obca(Form poprzednie,int ID)
         {
-            
+
+            //inicjalizujemy komponety oraz ustawimy  kody walut
+            //w liscie rozwijanej
             InitializeComponent();
             ID_zalogowany = ID;
             this.poprzednie = poprzednie;
@@ -34,7 +36,8 @@ namespace Kantor
 
         private int typ_operacji()
         {
-            if(kod_wybranej_waluty=="USD")
+            //funkcja  ta zwraca kod operacji w zaleznosic od  wybranego kodu waluty
+            if (kod_wybranej_waluty=="USD")
             {
                 return 1;
             }
@@ -59,6 +62,10 @@ namespace Kantor
 
         private void bt_zamien_Click(object sender, EventArgs e)
         {
+            //metoda ta wywoluje sie w momencie klikniecia w przycisk
+            //pobierana jest wartosc kwoty z  textboxa,
+            //sprawdzana jest  czy  kwota  mozliwajest dowymiany
+            //nastepuje wymiana, zapis  logow  w bazie
             tB_kwota.Text = tB_kwota.Text.Replace(".", ",");
             double kwota_PLN = Convert.ToDouble(tB_kwota.Text);
             double kwota_wyplaty = kwota_PLN / kurs;
@@ -139,6 +146,7 @@ namespace Kantor
 
         private bool walidacja_kwoty(double kwota)
         {
+            //sprawdzamy czy kwota mozliwa jest  do wymiany
             Stan_walut_kantoru stan = MySQL_Load_base.pobierz_stan_kantoru();
            
             if (kod_wybranej_waluty == "USD")
@@ -179,7 +187,9 @@ namespace Kantor
 
         private void cB_waluty_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var kod_waluty= cB_waluty.Items[cB_waluty.SelectedIndex].ToString();
+            //metoda  uruchamia  sie  w  momencie wyboru elementow 
+            //comboboxa
+            var kod_waluty = cB_waluty.Items[cB_waluty.SelectedIndex].ToString();
             API_NPB nbp_obj = new API_NPB();
             kurs = nbp_obj.Pobierz_kurs_waluty(kod_waluty);
             kod_wybranej_waluty = kod_waluty;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kantor
 {
+    //klasa reprezentujaca stan kantoru
     public class Stan_walut_kantoru
     {
         public double PLN { get; set; }
