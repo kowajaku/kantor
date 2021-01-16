@@ -9,11 +9,14 @@ namespace Kantor
 {
     public class MySQL_Load_base
     {
+        //string zawierający dane logowania do  bazy
         private static string connectionString = @"server=localhost;userid=root;password=;database=kantor_baza";
         
 
         public static string Data_godina_to_data(string data_godz)
         {
+            //funkcja konwertuje date zapisana jako data time
+            //na sama datebez czasu
             string data="";
             for(int i=0;i<data_godz.Length-8;i++)
             {
@@ -87,6 +90,8 @@ namespace Kantor
 
         public static int pobierz_ID(string login, string haslo)
         {
+            //sukces liczba id
+            //-1  jeśli nie  powiodło się
             int ID_uzytkonika = -1;
             try
             {
@@ -107,6 +112,8 @@ namespace Kantor
 
         public static List<List<string>> pobierz_dane_podglad()
         {
+            //funkcja zwraca liste z danymi do wyswietlenia w  podgladzie
+            //wprzypadku problemu z baza  funkcja zwroci null
             List<List<string>> dane = new List<List<string>>();
             string sql = "SELECT`tranzakcje`.Data,`tranzakcje`.Godzina," +
                 "`typy`.`Opis`,`tranzakcje`.Ilosc_jednostek_wym," +
@@ -153,6 +160,8 @@ namespace Kantor
 
         public static  Stan_walut_kantoru pobierz_stan_kantoru()
         {
+            //funkcja zwraca  obiekt Stan walut wprzypadku powdzenia
+            //w przypadku problemów zwracany jest null
             Stan_walut_kantoru aktulany = new Stan_walut_kantoru();
             string sql = "SELECT * FROM `stan_walut` Limit 1";
             try
@@ -187,6 +196,7 @@ namespace Kantor
         }
         public static bool aktualizacja_stanu_walut_kantoru(Stan_walut_kantoru stan)
         {
+            //jak ok zwostanie zwrocony stan walut
             //jak  cos  sie zepsuje false
             string sql = String.Format("UPDATE `stan_walut` SET `PLN`={0},`USD`={1},`EUR`={2},`GBP`={3},`CHF`={4};",
                 stan.PLN.ToString().Replace(",","."),
@@ -234,6 +244,8 @@ namespace Kantor
                                                         double Ilosc_po,
                                                         int ID_usera)
         {
+            //funkcja ta zapisuje logi do bazy,w przypadku powodzenia zwraca
+            //prawdę zaś  w przypadku błędów  false
             string sql = String.Format("INSERT INTO `tranzakcje`(`ID`, `Data`, `Godzina`, `Typ_operacji`, `Ilosc_jednostek_wym`, `ilosc_jednostek_po_wymianie`, `ID_uzytkownika`) VALUES(NULL,'{0}','{1}','{2}','{3}','{4}','{5}')",
                 data, godzina, typ_operacji,
                 Ilosc_do.ToString().Replace(",", "."),
